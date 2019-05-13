@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>管理员页面</title>
+    <link rel="stylesheet" href="/static/css/admin.css"/>
+    <link rel="stylesheet" href="/static/css/amazeui.min.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+</head>
+
+<body data-type="generalComponents">
+<!--------------------top1------------------>
+<header class="am-topbar am-topbar-inverse admin-header">
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+            <!-------个人中心-------------------->
+            {% if admin_name and admin_face %}
+                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                        <span class="tpl-header-list-user-nick">{{ admin_name }}</span><span
+                            class="tpl-header-list-user-ico">
+                      <img src="{{ admin_face }}">
+                    </span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li>
+                            <a href="#"><span class="am-icon-bell-o"></span> 资料</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="am-icon-cog"></span> 设置</a>
+                        </li>
+                        <li>
+                            <a href="/admin/adminLogout"><span class="am-icon-power-off"></span> 退出</a>
+                        </li>
+                    </ul>
+                </li>
+            {% else %}
+                <li class="am-dropdown">
+                    <a href="/admin/adminLogin"><p style="color: #0a628f">登录</p></a>
+                </li>
+            {% endif %}
+            <!-------个人中心------------------------------------------>
+            <li style="margin-right: 40px;"></li>
+        </ul>
+    </div>
+</header>
+<!---------------header-------------------------->
+<!---    左侧导航栏---------------->
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.html" class="nav-link active">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="tpl-left-nav-item">
+                    <a href="/admin/checkItem/" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-bar-chart"></i>
+                        <span>商品审核</span>
+                        <span id="msgCount"></span>
+                    </a>
+                </li>
+
+
+
+                <li class="tpl-left-nav-item">
+                    <a href="/admin/manageUser" class="nav-link tpl-left-nav-link-list active">
+                        <i class="am-icon-wpforms"></i>
+                        <span>查看所有用户</span>
+                    </a>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="/admin/adminLogin" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-key"></i>
+                        <span>登录</span>
+
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!---    左侧导航栏---------------->
+    <div class="tpl-content-wrapper">
+        <div class="tpl-portlet-components">
+            <div class="portlet-title">
+                <div class="caption font-green bold">
+                    <span class="am-icon-code"></span> 用户交易详情
+                </div>
+
+            </div>
+            <div class="tpl-block">
+                <div class="am-g">
+                    <div class="am-u-sm-12">
+                        <form class="am-form">
+                            <table class="am-table am-table-striped am-table-hover table-main">
+                                {% if orders %}
+                                    <thead>
+                                    <tr>
+                                        <th class="table-title">商品名称</th>
+                                        <th class="am-hide-sm-only">商品价格</th>
+                                        <th class="am-hide-sm-only">交易日期</th>
+                                        <th class="am-hide-sm-only">用户评分</th>
+                                        <th class="am-hide-sm-only">买方姓名</th>
+                                        <th class="am-btn-toolbar">买方评价</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td>
+                                                <img src="{{ order.pic1 }}" style="width: 50px;height: 50px;"/>
+                                                <a href="#">{{ order.itemName }}</a>
+                                            </td>
+                                            <td class="am-hide-sm-only">{{ order.price }}元</td>
+                                            <td class="am-hide-sm-only">{{ order.time }}</td>
+                                            <td class="am-hide-sm-only">
+                                                {% if order.start!= -1 %}
+                                                    {{ order.start }}
+                                                {% endif %}
+                                            </td>
+                                            <td class="am-hide-sm-only">
+                                                zzfs
+                                            </td>
+                                            <td class="am-btn-toolbar">{{ order.comment }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <div style="text-align: center">
+                                        <h2>
+                                            {{ msg }}
+                                        </h2>
+                                    </div>
+
+                                    </tbody>
+                                {% endif %}
+                            </table>
+                            <hr>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tpl-alert"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script src="/static/js/amazeui.min.js"></script>
+<script src="/static/js/app.js"></script>
+<script type="text/javascript">
+	$(function(){
+			$.ajax({
+				url:"/admin/checkCount/",
+				cache:"false",
+				async:"true",
+				dataType:"json",
+				type:"get",
+				success:function(data){
+                    var count=data.check_count;
+                    var admin_name={{admin.admin_name }};
+					if( count!=0 &&admin_name!=''){
+                        $(msgCount).append("<i class='tpl-left-nav-content tpl-badge-danger'>"+count+"</i>")
+					}
+				},
+				error:function(){
+					alert("服务器端异常");
+				}
+		});
+	})
+</script>
+</body>
+
+</html>

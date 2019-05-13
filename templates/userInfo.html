@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="order by dede58.com"/>
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/layui.css" media="all">
+    <!--<link rel="stylesheet" href="static/css/common.css" >-->
+    <style type="text/css">
+        .myli {
+            font-size: 45px;
+            color: #FF5722;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        #myinput {
+            text-align: center;
+        }
+
+        .myb {
+            font-size: large;
+            width: 500px;
+            text-align: center;
+        }
+
+        .mybutton {
+            margin-top: 20px;
+            margin-left: 420px;
+        }
+
+        .item {
+            width: 150px;
+            text-align: center;
+            float: left;
+            margin-top: 25px;
+        }
+
+        .form {
+            margin-left: 40px;
+        }
+
+        .hint {
+            background-color: #ed6b75 !important;
+            border-radius: 1000px;
+            color: #fff !important;
+            padding: 0px 8px !important;
+            margin-left: 8px;
+            position: relative;
+            font-style: normal;
+            font-family: "微软雅黑";
+            font-size: 12px !important;
+        }
+    </style>
+</head>
+
+<body>
+<!-- start header -->
+<header>
+    <div class="top center">
+        <div class="right fr">
+            <div class="gouwuche fr">
+                <a href="">个人中心</a>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--end header -->
+    <!-- start banner_x -->
+    <!-- top2 search-->
+    <div class="banner_x center">
+        <a href="{{ url_for('user.index') }}" taget="_blank">
+            <i class="layui-icon layui-icon-home fl myli"></i>
+        </a>
+        <div class="nav fl">
+            <ul style="margin-left:50px;">
+                <li><a href="/user/itemList/手机">手机</a></li>
+                <li><a href="/user/itemList/电脑平板">电脑平板</a></li>
+                <li><a href="/user/itemList/服饰鞋包">服饰鞋包</a></li>
+                <li><a href="/user/itemList/二手书籍">二手书籍</a></li>
+                <li><a href="/user/itemList/家居家电">家居家电</a></li>
+                <li><a href="/user/itemList/生活百货">生活百货</a></li>
+                <li><a href="/user/itemList/健身器材">健身器材</a></li>
+                <li><a href="/user/itemList/智能硬件">智能硬件</a></li>
+                <li><a href="/user/itemList/其他">其他</a></li>
+            </ul>
+        </div>
+        <!--search 框-->
+        <div class="search fr">
+            <form action="" method="post">
+                <div class="text fl">
+                    <input type="text" class="shuru" placeholder="请输入需要的商品">
+                </div>
+                <div class="submit fl">
+                    <input type="submit" class="sousuo" value="搜索"/>
+                </div>
+                <div class="clear"></div>
+            </form>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- top2 -->
+
+    <!-- 左侧导航 -->
+    <div class="grzxbj" style="margin-top: 10px;">
+        <div class="selfinfo center">
+            <div class="lfnav fl">
+                <div class="ddzx">
+                    <p><b>订单中心</b></p>
+                </div>
+                <div class="subddzx">
+                    <ul style="margin-left: 5px;">
+                        <li>
+                            <a href="{{ url_for('user.order') }}">我的订单</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ddzx">
+                    <p><b>个人中心</b></p>
+                </div>
+                <div class="subddzx">
+                    <ul style="margin-left: 5px;">
+                        <li>
+                            <a href="./self_info.html" style="color:#ff6700;font-weight:bold;">个人信息</a>
+                        </li>
+                        <li>
+                            <a href="/user/msgHint/">
+                                消息通知
+                                <span id="t">
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user/publishedItem">已发布商品</a>
+                        </li>
+                        <li>
+                            <a href="/user/historyList">游览历史</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('user.shopCar') }}">购物车</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('user.uploadItem') }}" target="_blank">上传商品</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('user.logout') }}">退出</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 左侧导航 -->
+
+            <div class="rtcont fr">
+                <form class="form" id="form1">
+                    <div style="margin-top: 60px;"></div>
+                    <div>
+                        <div class="item">
+                            <b class="myb">昵称:</b>
+                        </div>
+                        <input id="myinput" class="subgrzl ml40" type="text" name="username"
+                               value="{{ user.username }}"/>
+                    </div>
+                    <div>
+                        <div class="item">
+                            <b class="myb">电话号:</b>
+                        </div>
+                        <input id="myinput" class="subgrzl ml40" type="text" name="phone" value="{{ user.phone }}"/>
+                    </div>
+                    <div>
+                        <div class="item">
+                            <b class="myb">邮箱:</b>
+                        </div>
+                        <input id="myinput" class="subgrzl ml40" type="text" name="email" value="{{ user.email }}"/>
+                    </div>
+                    <div>
+                        <div class="item">
+                            <b class="myb">工作/职业:</b>
+                        </div>
+                        <input id="myinput" class="subgrzl ml40" type="text" name="work" value="{{ user.work }}"/>
+                    </div>
+                    <div>
+                        <div class="item">
+                            <b class="myb">收货地址:</b>
+                        </div>
+                        <input id="myinput" class="subgrzl ml40" type="text" name="address1"
+                               value="{{ user.address1 }}"/>
+                    </div>
+                    <div>
+                        <div class="item">
+                            <b class="myb">发货地址:</b>
+                        </div>
+                        <input id="myinput" class="subgrzl ml40" type="text" name="address2"
+                               value="{{ user.address2 }}"/>
+                    </div>
+                    <input class="layui-btn layui-btn-danger mybutton" type="button" value="保存修改" onclick="userInfo()">
+                </form>
+
+                <!--修改图像   -->
+                <div style="position:absolute; top:270px ; right:400px;">
+                    <div>
+                        <img id="test1" src="{{ user.Icon }}" style="width:170px; height: 170px;"/>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h2 style="color: red;">个人信誉:{{ user.credit }}%</h2>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- self_info -->
+
+    <footer class="mt20 center layui-bg-black myfooter">
+
+        <div class="copyright">
+            <h2>简体 | 繁体 | English | 常见问题</h2></div>
+        <div class="copyright">
+            <h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号</h2>
+        </div>
+    </footer>
+</body>
+<script src="/static/js/layui.all.js"></script>
+{# 上传用户图像  #}
+<script>
+    layui.use('upload', function () {
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,
+            url: '{{ url_for('user.upload_face') }}' //上传接口
+            ,
+            done: function (res) {
+                //上传完毕回调
+                if (res.resultCode == 200) {
+                    var url = res.url;
+                    document.getElementById("test1").src = url;
+                }
+            },
+            error: function () {
+                //请求异常回调
+            }
+        });
+    });
+</script>
+{#修改用户信息   #}
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    function userInfo() {
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST", //方法类型
+            dataType: "json", //预期服务器返回的数据类型
+            url: "{{ user.userInfo }}", //url
+            data: $('#form1').serialize(),
+            success: function (result) {
+                console.log(result); //打印服务端返回的数据(调试用)
+                if (result.resultCode == 200) {
+                    alert("修该成功");
+                }
+                ;
+            },
+            error: function () {
+                alert("用户名已存在");
+            }
+        });
+    }
+</script>
+{#聊天消息通知#}
+<script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+<script>
+    $(document).ready(function () {
+        namespace = '/abcd';
+        var i = 0;
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+        socket.on('hint', function (res) {
+
+            var hint = res;
+            var cur_user = '{{ user.user_id}}';
+            console.log(cur_user)
+            console.log(hint)
+            if (hint && hint == cur_user) {
+                var i = getMsgCount(cur_user);
+                console.log(i)
+                $("#t").empty();
+               // $("#t").append("<i class='hint'>" +i + "</i>").append('<br/>');
+                {#var t=document.getElementById('t')#}
+                {#t.append().append('<br/>');#}
+            }
+            ;
+            {#if(i==0){#}
+            {#    $("#hint").css('visibility',hidden)#}
+
+        });
+    });
+
+    function getMsgCount(user_id) {
+        console.log('getMsgCount')
+        var data = {'user_id': user_id};
+        var count;
+        $.ajax({
+            //几个参数需要注意一下
+            type: "get", //方法类型
+            dataType: "json", //预期服务器返回的数据类型
+            url: "/user/getMsgCount/",
+            data: data,
+            success: function (result) {
+                if (result.code == 200) {
+                    //alert(result.count);
+                    alert('你有一条新消息');
+                    count = result.count;
+                };
+            },
+            error: function () {
+
+            }
+        });
+        console.log(count);
+        return count;
+    }
+</script>
+</html>

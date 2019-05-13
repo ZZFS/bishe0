@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>登录界面</title>
+		<link rel="stylesheet" href="/static/css/reset.css" />
+		<link rel="stylesheet" href="/static/css/common.css" />
+		<link rel="stylesheet" href="/static/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<link rel="stylesheet" href="/static/css/layui.css" media="all">
+		<style>
+			.myfooter {
+				margin-top: 0px;
+			}
+
+			.myli {
+				font-size: 45px;
+				color: #FF5722;
+				margin-top: 20px;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--head------->
+		<header>
+			<div class="top center">
+				<div class="right fr">
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>
+		<!--head------->
+
+		<!-- top2 search-->
+		<div class="banner_x center">
+			<a href="/user/index" taget="_blank">
+				<i class="layui-icon layui-icon-home fl myli"></i>
+			</a>
+			<div class="nav fl">
+				<ul style="margin-left:50px;">
+					<li>
+						<a href="/liebiao.html" target="_blank">手机</a>
+					</li>
+					<li>
+						<a href="">电脑 平板</a>
+					</li>
+					<li>
+						<a href="">平板·笔记本</a>
+					</li>
+					<li>
+						<a href="">电视</a>
+					</li>
+					<li>
+						<a href="">盒子·影音</a>
+					</li>
+					<li>
+						<a href="">路由器</a>
+					</li>
+					<li>
+						<a href="">智能硬件</a>
+					</li>
+					<li>
+						<a href="">服务</a>
+					</li>
+					<li>
+						<a href="">社区</a>
+					</li>
+				</ul>
+			</div>
+			<!--search 框-->
+			<div class="search fr">
+				<form action="#" method="post">
+					<div class="text fl">
+						<input type="text" class="shuru" placeholder="请输入需要的商品">
+					</div>
+					<div class="submit fl">
+						<input type="submit" class="sousuo" value="搜索" />
+					</div>
+					<div class="clear"></div>
+				</form>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!-- top2 -->
+
+		<div class="wrap modify_wrap">
+			<div class="content" style="margin-top:150px;">
+				<div class="login_box">
+
+					<div class="login_form">
+						<div class="login_title">
+							用户修改密码
+						</div>
+						<form action="/user/modifyPwd/" method="post">
+							<div style="height: 20px;text-align: center">
+                                {% if msg %}
+                                    <p style="color: red">{{ msg }}</p>
+                                {% endif %}
+							</div>
+
+							<div class="form_text_ipt">
+								<input id='email'  name="email" type="text" placeholder="请输入邮箱"/>
+							</div>
+							<div class="ececk_warning"><span>手机号/邮箱不能为空</span></div>
+							<div class="form_text_ipt">
+								<input name="password1" type="password" placeholder="请输入新密码">
+							</div>
+							<div class="ececk_warning"><span>密码不能为空</span></div>
+							<div class="form_text_ipt">
+								<input name="password2" type="password" placeholder="确认新密码">
+							</div>
+							<div class="ececk_warning"><span>密码不能为空</span></div>
+							<div class="form_text_ipt">
+								<input name="code" type="text" placeholder="请输入邮箱验证码">
+							</div>
+							<div class="ececk_warning"><span>验证码不能为空</span></div>
+							<div class="form_check_ipt">
+								<div class="right check_right">
+									<a onclick="sendMail()" >点击发送验证码</a>
+								</div>
+							</div>
+							<div class="form_btn">
+								<input class="layui-btn layui-btn-danger" type="submit" value="保存修改" style="width: 300px;" />
+							</div>
+							<div class="form_reg_btn">
+								<a href="/user/login">登录</a>
+							</div>
+						</form>
+						<div class="other_login">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--footer---------->
+		<footer class="mt20 center layui-bg-black myfooter">
+
+			<div class="copyright">
+				<h2>简体 | 繁体 | English | 常见问题</h2></div>
+			<div class="copyright">
+				<h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号</h2></div>
+		</footer>
+		<!--footer---------->
+		<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+		<script type="text/javascript" src="/static/js/common.js"></script>
+		<script>
+			function sendMail() {
+                console.log('111111');
+                var x = document.getElementById("email").value;
+                var data = {"recipient": x};
+                console.log(data);
+                $.ajax({
+                    type: 'post',
+                    url: '/user/sendMailCode/',
+                    // 是需要传输的数据
+                    data: data,
+                    // 发送类型， 默认是form表单格式
+                    // contentType: 'json',
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.Code==200)
+                        {
+                            console.log('请求成功');
+                        }
+                    },
+                    error: function () {
+                        // 发送ajax 请求失败，服务端不能做正常的处理
+                        console.log('请求失败');
+                    }
+                })
+            }
+		</script>
+	</body>
+
+</html>

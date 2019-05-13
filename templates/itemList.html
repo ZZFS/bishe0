@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>手机列表</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/layui.css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.css"/>
+</head>
+<style>
+    .myli {
+        font-size: 45px;
+        color: #FF5722;
+        margin-top: 20px;
+        margin-right: 10px;
+    }
+</style>
+<body>
+<!-- start header -->
+<header>
+    <div class="top center">
+        <div class="left fl">
+        </div>
+        <div class="right fr">
+            <div class="gouwuche fr"><a href="/user/userInfo">个人中心</a></div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<!--end header -->
+
+<!-- start banner_x -->
+<div class="banner_x center">
+    <a href="/user/index">
+        <i class="layui-icon layui-icon-home fl myli"></i>
+    </a>
+    <div class="nav fl">
+        <ul style="margin-left:50px;">
+            <li><a href="/user/itemList/手机">手机</a></li>
+            <li><a href="/user/itemList/电脑平板">电脑平板</a></li>
+            <li><a href="/user/itemList/服饰鞋包">服饰鞋包</a></li>
+            <li><a href="/user/itemList/二手书籍">二手书籍</a></li>
+            <li><a href="/user/itemList/家居家电">家居家电</a></li>
+            <li><a href="/user/itemList/生活百货">生活百货</a></li>
+            <li><a href="/user/itemList/健身器材">健身器材</a></li>
+            <li><a href="/user/itemList/智能硬件">智能硬件</a></li>
+            <li><a href="/user/itemList/其他">其他</a></li>
+        </ul>
+    </div>
+    <div class="search fr">
+        <form action="/user/search/" method="post">
+            <div class="text fl">
+                <input type="text" class="shuru" name="search" placeholder="&nbsp;&nbsp;请输入需要的商品">
+            </div>
+            <div class="submit fl">
+                <input type="submit" class="sousuo" value="搜索"/>
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- end banner_x -->
+
+<!-- start banner_y -->
+<!-- end banner -->
+
+<!-- start danpin -->
+<div class="danpin center">
+
+    <div class="biaoti center" style="margin-left: 200px;">
+        {% if categary %}
+            {{ categary }}
+        {% endif %}
+    </div>
+
+
+    <div class="main center">
+        {% if pagination %}
+            {% for item in pagination.items %}
+                <div class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;"
+                     onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'">
+                    <div class="sub_mingxing">
+                        <a href="/user/detail/{{ item.item_id }}">
+                            <img src="{{ item.pic1 }}" alt="">
+                        </a>
+                    </div>
+                    <div class="pinpai"><a href="">{{ item.itemName }}</a></div>
+                    <div class="youhui">{{ item.detail }}</div>
+                    <div class="jiage">{{ item.price }}元</div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if not pagination %}
+            <div style="width: 1200px;height:1000px">
+            </div>
+        {% endif %}
+
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!------分页-------->
+{#    宏定义形式实现的分页导航#}
+{% import "_macros.html" as macros %}
+{% if pagination %}
+    <div style="text-align: center;margin-top: 10px">
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination, 'user.paginate') }}
+        </div>
+    </div>
+{% endif %}
+
+<!-- footer -->
+<footer class="mt20 center layui-bg-black">
+     <div class="copyright">
+        <h2>易淘二手商城版权所有</h2>
+    </div>
+</footer>
+
+<!-- end danpin -->
+<script src="/static/js/layui.js"></script>
+<script></script>
+<script>
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+            ,
+            count: 50 //数据总数，从服务端得到
+        });
+    });
+</script>
+</body>
+</html>

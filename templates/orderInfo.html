@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情</title>
+    <link rel="stylesheet" href="/static/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<style>
+    .myfooter {
+        margin-top: 100px;
+    }
+
+    .myImg {
+        width: 400px;
+        height: 400px;
+    }
+
+    .myli {
+        font-size: 45px;
+        color: #FF5722;
+        margin-top: 20px;
+        margin-right: 10px;
+    }
+
+    .layui-rate li i.layui-icon {
+        font-size: 30px;
+    }
+
+    .categary {
+        width: 150px;
+        height: 30px;
+        margin-left: 10px;
+    }
+</style>
+<body>
+<!-- start header -->
+<header>
+    <div class="top center">
+        <div class="right fr">
+            <div class="gouwuche fr">
+                <a href="/user/userInfo">个人中心</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<!--end header -->
+
+<!-- top2 search-->
+<div class="banner_x center">
+    <a href="/user/index" taget="_blank">
+        <i class="layui-icon layui-icon-home fl myli"></i>
+    </a>
+    <div class="nav fl">
+        <ul style="margin-left:50px;">
+            <li><a href="/user/itemList/手机">手机</a></li>
+            <li><a href="/user/itemList/电脑平板">电脑平板</a></li>
+            <li><a href="/user/itemList/服饰鞋包">服饰鞋包</a></li>
+            <li><a href="/user/itemList/二手书籍">二手书籍</a></li>
+            <li><a href="/user/itemList/家居家电">家居家电</a></li>
+            <li><a href="/user/itemList/生活百货">生活百货</a></li>
+            <li><a href="/user/itemList/健身器材">健身器材</a></li>
+            <li><a href="/user/itemList/智能硬件">智能硬件</a></li>
+            <li><a href="/user/itemList/其他">其他</a></li>
+        </ul>
+    </div>
+
+</div>
+<!-- top2 -->
+
+<hr class="layui-bg-red">
+<!-- xiangqing -->
+<!-- 订单详情-->
+<div class="jieshao mt20 w">
+    <div class="left fl" style="width:450px;height:450px;margin-left:120px;margin-top: 60px">
+        <img class="myImg" src="{{ order.pic1 }}">
+    </div>
+
+    <div class="right fr">
+        <div style="margin-left: 50px;margin-top: 80px;">
+            <div class="ft20 ml20 mt20">商品名称：{{ order.itemName }}</div>
+            <div class="ft20 ml20 mt20">商品编号：{{ order.order_uuid }}</div>
+            <div class="ft20 ml20 mt20">下单时间：{{ order.time }}</div>
+            <div class="ft20 ml20 mt20">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格&nbsp;：{{ order.price }}元</div>
+            <div class="ft20 ml20 mt20">商品成色：{{ order.condition }}</div>
+            <div class="ft20 ml20 mt20">发&nbsp;货&nbsp;地&nbsp;&nbsp;：{{ order.address2 }}</div>
+            <div class="ft20 ml20 mt20">收&nbsp;货&nbsp;地&nbsp;&nbsp;：{{ order.address1 }}</div>
+            <div class="ft20 ml20 mt20">订&nbsp;单&nbsp;状&nbsp;态;：{{ order.status }}</div>
+            <div class="ft20 ml20 mt20">联系方式：{{ order.phone }}</div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+{% if order.start ==-1 %}
+<form class="layui-form" action="" style="margin-top: 90px; margin-left: 200px;">
+
+    <div style="float: left; margin-top: 18px; margin-right: 10px;"><h3>评价:</h3></div>
+    <div id="test1" style="float: left;"></div>
+    <div style="clear: both;"></div>
+</form>
+{% endif %}
+
+
+{% if order.status != "已收货" %}
+    <!--评价--------->
+    <div>
+        <div style="margin-left:200px;margin-top: 30px;">
+            <label style="float: left;"><h3>评价:</h3></label>
+            <select id="select" name="comment" class="categary" style="float: left;" onchange="comment(this.value)">
+                <option value="------">--------------</option>
+                <option value="符合买方描述">符合买方描述</option>
+                <option value="基本符合买方描述">基本符合买方描述</option>
+                <option value="严重不符合买方描述">严重不符合买方描述</option>
+                <option value="商品定价较高">商品定价较高</option>
+            </select>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <!----------评价--------->
+{% endif %}
+
+
+<div id="orderId" style="text-align: center;">
+    {% if msg %}
+        {{ msg }}
+    {% endif %}
+</div>
+<!--评价--------->
+<!-- footer -->
+<footer class="mt20 center layui-bg-black myfooter">
+
+    <div class="copyright"><h2>简体 | 繁体 | English | 常见问题</h2></div>
+    <div class="copyright"><h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号
+    </h2></div>
+</footer>
+<script src="/static/js/layui.js"></script>
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script>
+    layui.use('rate', function () {
+        var rate = layui.rate;
+        rate.render({
+            elem: '#test1',
+            choose: function (value) {
+                console.log(value);
+                $.ajax({
+
+                    //几个参数需要注意一下
+                    type: "POST", //方法类型
+                    dataType: "json", //预期服务器返回的数据类型
+                    url: "/user/evaluate/",
+                    data: {"start": value, "order_id":{{order.order_id}}},
+                    success: function (result) {
+                        console.log(result); //打印服务端返回的数据(调试用)
+                        location.href = '/user/orderInfo/{{ order.order_id }}';
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+    function comment(sel) {
+        console.log(sel);
+        var data = {"comment": sel, "order_id":{{order.order_id}}};
+        console.log(data);
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/comment/",
+            data: data,
+            success: function (result) {
+                if (result.Code == 200) {
+                    location.href = '/user/orderInfo/{{ order.order_id }}';
+                }
+                ;
+                if (result.Code == 500) {
+                    alert('失败！')
+                }
+                ;
+            },
+            error: function () {
+                alert("异常！");
+            }
+        });
+    }
+</script>
+
+</body>
+
+</html>

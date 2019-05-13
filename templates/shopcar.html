@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="order by dede58.com"/>
+    <title>我的购物车-易淘商城</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/layui.css">
+    <style>
+        .myli {
+            font-size: 30px;
+            color: #FF5722;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<!-- start header -->
+<!--end header -->
+
+<!-- start banner_x -->
+<div class="banner_x center">
+    <a href="/user/index" target="_blank">
+        <i class="layui-icon layui-icon-home fl myli"></i>
+    </a>
+
+    <div class="wdgwc fl ml40">我的购物车</div>
+    <div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+    <div class="dlzc fr">
+        <ul>
+            <li><a href="/user/userInfo" target="_blank">个人中心</a></li>
+        </ul>
+
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- start banner_x -->
+
+<div class="xiantiao"></div>
+<div class="gwcxqbj">
+    <div class="gwcxd center">
+        <div class="top2 center">
+            <div class="sub_top fl">商品名称</div>
+            <div class="sub_top fl">单价</div>
+            <div class="sub_top fl">数量</div>
+            <div class="sub_top fl">小计</div>
+            <div class="sub_top fl">购买</div>
+            <div class="sub_top fr">操作</div>
+            <div class="clear"></div>
+        </div>
+
+        {% if itemList %}
+            {% for item in itemList %}
+                <div class="content2 center">
+
+                    <div class="sub_content fl"><img src="{{ item.pic1 }}" style="width: 85px;height: 85px"></div>
+                    <div class="sub_content fl ">{{ item.itemName }}</div>
+                    <div class="sub_content fl ">{{ item.price }}</div>
+                    <div class="sub_content fl">
+                        <input class="shuliang" type="number" value="{{ item.count }}" step="1" min="1"
+                               onclick="changeCount(this.value,{{ item.ShopCar_id }})"/>
+                    </div>
+                    <div class="sub_content fl">{{ item.price*item.count }}</div>
+                    <div class="sub_content fl" style="margin-left: 150px">
+                        <a  id="{{ item.ShopCar_id }}" href="" onclick="buy(this)">
+                            <h3  style="width:70px">购买</h3>
+                        </a>
+                    </div>
+                    <div class="sub_content fl" style="margin-left: 70px">
+                        <a href="/user/deleteShopCar/{{ item.ShopCar_id }}">×</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div style="height: 300px"></div>
+        {% endif %}
+
+
+    </div>
+</div>
+
+<!-- footer -->
+<footer class="mt20 center layui-bg-black">
+
+    <div class="copyright"><h2>简体 | 繁体 | English | 常见问题</h2></div>
+    <div class="copyright"><h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号
+    </h2></div>
+</footer>
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script>
+    function changeCount(count, shopCar_id) {
+        var data = {'count': count, 'shopCar_id': shopCar_id};
+        console.log(data)
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/changeCount/",
+            data: data,
+            success: function (result) {
+                if (result.Code == 200) {
+                    location.href = '/user/shopCar/'
+                }
+                ;
+                if (result.Code == 500) {
+                    alert('失败！')
+                }
+                ;
+            },
+            error: function () {
+                alert("异常！");
+            }
+        });
+    }
+</script>
+
+<script>
+    function buy(obj) {
+        var id=obj.id;
+        console.log(id)
+        var data={'shopCar_id':id};
+        console.log(data);
+        $.ajax({
+            type: "GET",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/CloseShopCar/",
+            data:data,
+            success: function (result) {
+                console.log(result.Code);
+                if (result.Code == 200) {
+                    alert(result.msg);
+                    location.href='/user/shopCar/'
+                }
+                ;
+                if (result.Code == 500) {
+                    alert(result.msg)
+                }
+                ;
+            },
+            error: function () {
+                alert("商品购买成功！");
+                location.href='/'
+            }
+        });
+    }
+</script>
+</body>
+</html>

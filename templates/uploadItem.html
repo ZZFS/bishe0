@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="author" content="order by dede58.com"/>
+		<title>上传商品</title>
+		<!--<link rel="stylesheet" type="text/css" href="static/css/login.css">-->
+		<link rel="stylesheet" type="text/css" href="/static/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <style type="text/css">
+        	.myli{
+				font-size: 45px;
+				color:#FF5722;
+				margin-top: 20px;
+				margin-right: 10px;
+			}
+			.myb {
+				font-size: large;
+				width: 500px;
+				text-align: center;
+			}
+
+			.mybutton {
+				margin-top: 30px;
+				margin-left:450px;
+			}
+
+			.item {
+				width: 150px;
+				text-align: center;
+				float: left;
+				margin-top: 25px;
+			}
+			.input{
+				width: 270px;
+				height:30px;
+			}
+        </style>
+	</head>
+	<body>
+		<!--head----------->
+		<!-- top1  个人中心-->
+		<header>
+			<div class="top center">
+				<div class="right fr">
+					<div class="gouwuche fr">
+						<a href="userInfo.html">个人中心</a>
+					</div>
+					<div class="fr">
+						<ul>
+							<li>
+								<a href="./login.html" target="_blank">登录</a>
+							</li>
+							<li>|</li>
+							<li>
+								<a href="./register.html" target="_blank">注册</a>
+							</li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>
+		<!--top1 -->
+
+		<!-- top2 search-->
+		<div class="banner_x center">
+			<a href="./index.html" taget="_blank">
+				<i class="layui-icon layui-icon-home fl myli"></i>
+			</a>
+			<div class="nav fl">
+				<ul style="margin-left:50px;">
+					<li>
+						<a href="/liebiao.html" target="_blank">手机</a>
+					</li>
+					<li>
+						<a href="">电脑 平板</a>
+					</li>
+					<li>
+						<a href="">平板·笔记本</a>
+					</li>
+					<li>
+						<a href="">电视</a>
+					</li>
+					<li>
+						<a href="">盒子·影音</a>
+					</li>
+					<li>
+						<a href="">路由器</a>
+					</li>
+					<li>
+						<a href="">智能硬件</a>
+					</li>
+					<li>
+						<a href="">服务</a>
+					</li>
+					<li>
+						<a href="">社区</a>
+					</li>
+				</ul>
+			</div>
+			<!--search 框-->
+			<div class="search fr">
+				<form action="" method="post">
+					<div class="text fl">
+						<input type="text" class="shuru" placeholder="请输入需要的商品">
+					</div>
+					<div class="submit fl">
+						<input type="submit" class="sousuo" value="搜索" />
+					</div>
+					<div class="clear"></div>
+				</form>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!-- top2 -->
+		<hr class="layui-bg-red">
+		<!--head----------->
+
+		<!---------------  上传商品---------------------->
+		<div style="width: 600px; height: 500px; background-color:#F8F8F8;margin-left:350px;">
+		  <div style="width: 600px;height: 480px; margin-top: 80px; ">
+			<form id="form1" >
+				<div style=" height: 50px;"></div>
+				<div style="margin-left: 70px; margin-top: 10px;">
+					<div style="width: 120px;float: left;"><h2>商品名称：</h2></div>
+					<div style="width: 200px;height: 50px; float: left;">
+						<input  class="input"  type="text" name='itemname' placeholder="请输入商品名称" />
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+
+				<div style="margin-left: 70px; margin-top: 10px;">
+					<div style="width: 120px;float: left;"><h2>商品价格：</h2></div>
+					<div style="width: 200px;height: 50px; float: left;">
+						<input  class="input"  type="text" name='price' placeholder="请输入商品名称" />
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+
+				<div style="margin-left: 70px; margin-top: 10px;">
+					<div style="width: 120px;float: left;"><h2>商品成色：</h2></div>
+					<div style="width: 200px;height: 50px; float: left;">
+						<input  class="input"  type="text" name='condition' placeholder="请输入商品名称" />
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+				<div style="margin-left: 70px; margin-top: 10px;">
+					<div style="width: 120px;float: left;"><h2>商品描述：</h2></div>
+					<div style="width: 200px;height: 50px; float: left;">
+						<input  class="input"  type="text" name='detail' placeholder="请输入商品名称" />
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+
+				<div style="margin-left: 70px; margin-top: 10px;">
+					<div style="width: 120px;float: left;"><h2>商品类别：</h2></div>
+					<div style="width: 200px;height: 50px; float: left;">
+						<input  class="input" type="text" name='categary' placeholder="请输入商品名称" />
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+
+				<div style="margin-left: 300px;margin-top:20px;">
+				    <input class="layui-btn layui-btn-danger" value="上传商品" onclick="uploadItem()" />
+				</div>
+
+			  </div>
+			</form>
+		</div>
+	   <!--上传商品-->
+
+	   <!---->
+	   <!--修改图像   -->
+			<div style="position:absolute; top:250px ; right:320px;">
+				<div>
+					<img id="test1"  src="/static/image/hjh_05.gif" style="width:270px; height:300px;" />
+					<p style="color: red; margin-top: 8px;margin-left: 50px;">点击图像，上传图像</p>
+				</div>
+			</div>
+	   <!---->
+		<!--footer------>
+		<footer class="mt20 center layui-bg-black myfooter">
+
+			<div class="copyright">
+				<h2>简体 | 繁体 | English | 常见问题</h2></div>
+			<div class="copyright">
+				<h2>易淘二手商城版权所有-京ICP备10046444-<img src="static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号</h2></div>
+		</footer>
+		<!--footer------>
+
+		<script src="/static/js/layui.js"></script>
+		<script src="/static/js/jquery-3.3.1.js"></script>
+		<script>
+			layui.use('upload', function() {
+				var upload = layui.upload;
+
+				//执行实例
+				var uploadInst = upload.render({
+					elem: '#test1' //绑定元素
+						,
+					url: '/upload/' //上传接口
+						,
+					done: function(res) {
+						//上传完毕回调
+					},
+					error: function() {
+						//请求异常回调
+					}
+				});
+			});
+		</script>
+		<script type="text/javascript">
+        function uploadItem() {
+            $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "{{ url_for('user.uploadItem') }}" ,//url
+                data: $('#form1').serialize(),
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.resultCode == 200) {
+                        alert('ok');
+                    };
+                    if(result.resultCode==500){
+                        alert('haha')
+                    };
+
+                },
+                error : function() {
+                    alert('异常！');
+                }
+            });
+        }
+    </script>
+
+	</body>
+</html>

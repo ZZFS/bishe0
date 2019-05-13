@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="/static/css/reset.css"/>
+    <link rel="stylesheet" href="/static/css/common.css"/>
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/layui.css" media="all">
+    <style>
+        .myfooter {
+            margin-top: 0px;
+        }
+
+        .myli {
+            font-size: 45px;
+            color: #FF5722;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!--head------->
+<header>
+    <div class="top center">
+    </div>
+</header>
+<!--head------->
+
+
+<div class="wrap login_wrap">
+    <div class="content" style="margin-top:150px;">
+        <div class="login_box">
+
+            <div class="login_form">
+                <div class="login_title">
+                    管理员登录
+                </div>
+                <form action="{{ url_for('admin.admin_login') }}" method="post">
+
+                    <div style="height: 30px; text-align: center;">
+                        {% if msg %}
+                            <p style="color: red">{{ msg }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form_text_ipt">
+                        <input name="username" type="text" placeholder="用户名">
+                    </div>
+
+                    <div class="form_text_ipt">
+                        <input name="password" type="password" placeholder="密码">
+                    </div>
+
+                    <div class="form_check_ipt">
+                        <div class="left check_left">
+                            <label><input name="" type="checkbox"> 下次自动登录</label>
+                        </div>
+
+                        <div class="right check_right">
+                            <a href="/user/modifyPwd/">忘记密码</a>
+                        </div>
+                    </div>
+                    <div class="form_btn">
+                        <input class="layui-btn layui-btn-danger" type="submit" value="登录" style="width: 300px;"/>
+                    </div>
+                    <div class="form_reg_btn">
+                        <span>还没有帐号？</span><a href="{{ url_for('admin.admin_Register') }}">马上注册</a>
+                    </div>
+                </form>
+                <div class="other_login">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--footer---------->
+<footer class="mt20 center layui-bg-black myfooter">
+
+    <div class="copyright"><h2>简体 | 繁体 | English | 常见问题</h2></div>
+    <div class="copyright"><h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号
+    </h2></div>
+</footer>
+<!--footer---------->
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+</body>
+</html>

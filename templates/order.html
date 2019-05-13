@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="order by dede58.com"/>
+    <title>订单</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+</head>
+<style>
+    .myfooter {
+        margin-top: 60px;
+        background-color: #000000;
+    }
+
+    .myli {
+        font-size: 45px;
+        color: #FF5722;
+        margin-top: 20px;
+        margin-right: 10px;
+    }
+
+    .layui-inline, img {
+        display: inline-block;
+    }
+</style>
+
+<body>
+<!-- start header -->
+<header>
+    <div class="top center">
+
+        <div class="right fr">
+            <div class="gouwuche fr">
+                <a href="/user/userInfo">个人中心</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<!--header-------------->
+<!-- top2 search-->
+<div class="banner_x center">
+    <a href="{{ url_for('user.index') }}" taget="_blank">
+        <i class="layui-icon layui-icon-home fl myli"></i>
+    </a>
+    <div class="nav fl">
+        <ul style="margin-left:50px;">
+            <li><a href="/user/itemList/手机">手机</a></li>
+            <li><a href="/user/itemList/电脑平板">电脑平板</a></li>
+            <li><a href="/user/itemList/服饰鞋包">服饰鞋包</a></li>
+            <li><a href="/user/itemList/二手书籍">二手书籍</a></li>
+            <li><a href="/user/itemList/家居家电">家居家电</a></li>
+            <li><a href="/user/itemList/生活百货">生活百货</a></li>
+            <li><a href="/user/itemList/健身器材">健身器材</a></li>
+            <li><a href="/user/itemList/智能硬件">智能硬件</a></li>
+            <li><a href="/user/itemList/其他">其他</a></li>
+        </ul>
+    </div>
+    <!--search 框-->
+    <div class="search fr">
+        <form action="" method="post">
+            <div class="text fl">
+                <input type="text" class="shuru" placeholder="请输入需要的商品">
+            </div>
+            <div class="submit fl">
+                <input type="submit" class="sousuo" value="搜索"/>
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- top2 -->
+
+<!-- 左侧导航 -->
+<div class="grzxbj" style="margin-top: 10px;">
+    <div class="selfinfo center">
+        <div class="lfnav fl">
+            <div class="ddzx">
+                <p><b>订单中心</b></p>
+            </div>
+            <div class="subddzx">
+                <ul style="margin-left: 5px;">
+                    <li>
+                        <a href="{{ url_for('user.order') }}" style="color:#ff6700;font-weight:bold;">我的订单</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="ddzx">
+                <p><b>个人中心</b></p>
+            </div>
+            <div class="subddzx">
+                <ul style="margin-left: 5px;">
+                    <li>
+                        <a href="./self_info.html">个人信息</a>
+                    </li>
+                    <li>
+                        <a href="">消息通知</a>
+                    </li>
+                    <li>
+                        <a href="/user/publishedItem">已发布商品</a>
+                    </li>
+                    <li>
+                        <a href="">游览历史</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('user.shopCar') }}">购物车</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('user.uploadItem') }}">上传商品</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('user.logout') }}">退出</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- 左侧导航 -->
+        <!--展示订单-->
+        <div class="rtcont fr">
+            <div class="ddzxbt">交易订单</div>
+            <!------------------------>
+            <div class="ddxq">
+                <div class="ddspt fl"></div>
+                <div class="ddbh fl">商品</div>
+                <div class="ztxx fr">
+                    <ul>
+                        <li>商品状态</li>
+                        <li>价格</li>
+                        <li>下单时间</li>
+                        <li>
+                            订单详情
+                        </li>
+                        <li>
+                            操作
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!------------------------>
+            <div class="ddxq">
+                {% if pagination %}
+                    {% for order in pagination.items %}
+                        <div class="ddspt fl"><img src="{{ order.pic1 }}" style="width: 75px;height: 75px" alt=""></div>
+                        <div class="ddbh fl">{{ order.itemName }}</div>
+                        <div class="ztxx fr">
+                            <ul>
+                                <li>{{ order.status }}</li>
+                                <li>￥{{ order.price }}</li>
+                                <li>{{ order.time }}</li>
+                                <li>
+                                    <a href="/user/orderInfo/{{ order.order_id }}">订单详情></a>
+                                </li>
+                                <li>
+                                    <a href="/user/deleteOrder/{{ order.order_id }}">X</a>
+                                </li>
+                                <div class="clear"></div>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="clear"></div>
+        <!------分页-------->
+        {% import "_macros.html" as macros %}
+        {% if pagination %}
+            <div style="text-align: center;margin-top: 10px">
+                <div class="pagination">
+                    {{ macros.pagination_widget(pagination, 'user.order') }}
+                </div>
+            </div>
+        {% endif %}
+        <!------分页-------->
+    </div>
+</div>
+<!-- self_info -->
+
+<!-- footer -->
+<footer class="mt20 center layui-bg-black">
+
+    <div class="copyright">
+        <h2>简体 | 繁体 | English | 常见问题</h2></div>
+    <div class="copyright">
+        <h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号</h2>
+    </div>
+</footer>
+
+</body>
+
+</html>

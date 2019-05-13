@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>上传商品</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        form {
+            width: 500px;
+            border: 1px solid rgba(0, 0, 0, 0.7);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: 100px auto;
+        }
+
+        form > div {
+            margin: 15px 0;
+            padding: 0 50px;
+        }
+
+        input[type='text'] {
+            width: 300px;
+            height: 30px;
+        }
+
+        .categary {
+            width: 300px;
+            height: 30px;
+        }
+
+        input[type='radio'] {
+            margin: 0 10px;
+        }
+
+        input[type='submit'],
+        input[type='button'] {
+            width: 100px;
+            height: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+
+        form > div:last-child {
+            text-align: right;
+        }
+
+        #photo1 {
+            width: 70px;
+            height: 70px;
+            vertical-align: middle;
+            margin-left: 20px;
+        }
+        #photo2 {
+            width: 70px;
+            height: 70px;
+            vertical-align: middle;
+            margin-left: 20px;
+        }
+        #photo3 {
+            width: 70px;
+            height: 70px;
+            vertical-align: middle;
+            margin-left: 20px;
+        }
+
+        /*隐藏   上传按钮*/
+
+        #file1 {
+            display: none;
+        }
+
+        #file2 {
+            display: none;
+        }
+
+        #file3 {
+            display: none;
+        }
+
+        #file4 {
+            display: none;
+        }
+
+        #Mybutton {
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+<!--在文件上传时form表单的数据传输方式必须为post，并且编码格式必须为multipart/form-data，否则服务器端是无法获取传输的文件数据-->
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+    <div style="height: 30px;text-align: center">
+        {% if msg %}
+            <p style="color:red;">
+                {{ msg }}
+            </p>
+        {% endif %}
+    </div>
+
+    <div>
+        图片:
+        <label for="file1">
+            <img src="/static/image/default1.jpg"  id="photo1">
+        </label>
+        <input type="file" id="file1" name="file1" multiple>
+
+        <label for="file2">
+            <img  src="/static/image/default1.jpg"  id="photo2">
+        </label>
+        <input type="file" id="file2" name="file2" multiple>
+
+        <label for="file3">
+            <img  src="/static/image/default1.jpg"  id="photo3">
+        </label>
+        <input type="file" id="file3" name="file3" multiple>
+    </div>
+
+    <div>
+        商品视频:
+        <label for="file4">
+            <img src="/static/image/default1.jpg" style="width: 180px;height: 40px" id="photo">
+        </label>
+        <input type="file" id="file4" name="file4">
+
+    </div>
+    <div>
+        <label>名称:</label>
+        <input type="text" name="itemname">
+    </div>
+    <div>
+        <label>价格:</label>
+        <input type="text" name="price">
+    </div>
+    <div>
+        <label>描述:</label>
+        <input type="text" name="detail">
+    </div>
+    <div>
+        <label>成色:</label>
+        <select name="condition" class="categary">
+            <option value="全新">全新</option>
+            <option value="9成新">9成新</option>
+            <option value="8成新">8成新</option>
+            <option value="7成新">7成新</option>
+            <option value="其他">其他</option>
+        </select>
+    </div>
+
+    <div>
+        <label>数量:</label>
+        <input type="text" name="count">
+    </div>
+    <div>
+        <label>类别:</label>
+        <select name="categary" class="categary">
+            <option value="手机">手机</option>
+            <option value="电脑平板">电脑平板</option>
+            <option value="服饰鞋包">服饰鞋包</option>
+            <option value="二手书籍">二手书籍</option>
+            <option value="家居家电">家居家电</option>
+            <option value="生活百货">生活百货</option>
+            <option value="健身器材">健身器材</option>
+            <option value="智能硬件">智能硬件</option>
+            <option value="其他">其他</option>
+        </select>
+    </div>
+
+    <div>
+        <label>配置:</label>
+        <input type="text" name="config">
+    </div>
+    <div>
+        <input type="button" value="提交" onclick="uploadFile()">
+    </div>
+</form>
+</body>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    function uploadFile() {
+        var formData = new FormData($("#uploadForm")[0]);
+        console.log(formData);
+        // 进行文件数据的上传
+        $.ajax({
+            async: false,
+            cache: false,
+            url: '/user/uploadItem/',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                if (result.Code == 200) {
+                    var urls = result.pic;
+                    document.getElementById("photo1").src = urls[0];
+                    document.getElementById("photo2").src = urls[1];
+                    document.getElementById("photo3").src = urls[2];
+                    alert('商品上传成功！');
+                }
+                ;
+                if (result.Code == 500) {
+                    alert(result.msg);
+                }
+                ;
+            },
+        });
+    }
+</script>
+</html>

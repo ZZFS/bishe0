@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+</head>
+<body>
+{#    商品展示#}
+<ul class="goods">
+    {% for item in pagination.items %}
+        <li>
+            <p class="name">商品名称: {{ item.itemName }}</p>
+            <p class="price">商品价格: ￥{{ item.price }}</p>
+            <p class="detail">商品描述: {{ item.detail }}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+{#    宏定义形式实现的分页导航#}
+{% import "_macros.html" as macros %}
+{% if pagination %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, 'user.page') }}
+    </div>
+{% endif %}
+</body>
+</html>

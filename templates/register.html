@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>注册界面</title>
+    <link rel="stylesheet" href="/static/css/reset.css"/>
+    <link rel="stylesheet" href="/static/css/common.css"/>
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/layui.css" media="all">
+    <style type="text/css">
+        .mycode {
+            margin-top: 20px;
+            margin-left: 5px;
+        }
+
+        .myfooter {
+            margin-top: 0px;
+        }
+
+        .myli {
+            font-size: 45px;
+            color: #FF5722;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .myImg {
+            width: 120px;
+            height: 40px;
+            margin-left: 10px;
+            border: solid 1px black;
+        }
+    </style>
+</head>
+<body>
+<!--head------------>
+<header>
+    <div class="top center">
+        <div class="right fr">
+            <div class="gouwuche fr"><a href="userInfo.html">个人中心</a></div>
+            <div class="fr">
+                <ul>
+                    <li><a href="./login.html" target="_blank">登录</a></li>
+                    <li>|</li>
+                    <li><a href="./register.html" target="_blank">注册</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+
+<!-- top2 search-->
+<div class="banner_x center">
+    <a href="./index.html" taget="_blank">
+        <i class="layui-icon layui-icon-home fl myli"></i>
+    </a>
+    <div class="nav fl">
+        <ul style="margin-left:50px;">
+            <li>
+                <a href="/liebiao.html" target="_blank">手机</a>
+            </li>
+            <li>
+                <a href="">电脑 平板</a>
+            </li>
+            <li>
+                <a href="">平板·笔记本</a>
+            </li>
+            <li>
+                <a href="">电视</a>
+            </li>
+            <li>
+                <a href="">盒子·影音</a>
+            </li>
+            <li>
+                <a href="">路由器</a>
+            </li>
+            <li>
+                <a href="">智能硬件</a>
+            </li>
+            <li>
+                <a href="">服务</a>
+            </li>
+            <li>
+                <a href="">社区</a>
+            </li>
+        </ul>
+    </div>
+    <!--search 框-->
+    <div class="search fr">
+        <form action="" method="post">
+            <div class="text fl">
+                <input type="text" class="shuru" placeholder="请输入需要的商品">
+            </div>
+            <div class="submit fl">
+                <input type="submit" class="sousuo" value="搜索"/>
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- top2 -->
+
+
+<!--head------------>
+<div class="wrap login_wrap">
+    <div class="content" style="margin-top:100px;">
+        <div class="login_box">
+
+            <div class="login_form">
+                <div class="login_title">
+                    注册
+                </div>
+                <form action="{{ url_for('user.register') }}" method="post">
+                    <div id="hint" style="height: 30px; text-align: center;">
+                        {% if msg %}
+                            <p style="color: red">{{ msg }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="form_text_ipt">
+                        <input id="name" name="username" type="text" placeholder="用户名" value="">
+                    </div>
+                    <div class="ececk_warning"><span>用户名不能为空</span></div>
+                    <div class="form_text_ipt">
+                        <input name="pwd1" type="password" placeholder="密码">
+                    </div>
+                    <div class="ececk_warning"><span>密码不能为空</span></div>
+                    <div class="form_text_ipt">
+                        <input name="pwd2" type="password" placeholder="重复密码">
+                    </div>
+                    <div class="ececk_warning"><span>密码不能为空</span></div>
+
+
+                    <div class="form_text_ipt">
+                        <input name="phone" type="text" placeholder="电话">
+                    </div>
+                    <div class="ececk_warning"><span>电话不能为空</span></div>
+
+                    <div class="form_text_ipt">
+                        <input name="email" type="password" placeholder="邮箱">
+                    </div>
+                    <div class="ececk_warning"><span>邮箱不能为空</span></div>
+
+                    <div class="form_text_ipt1">
+                        <input class="myinput" name="code" type="text" placeholder="验证码">
+                    </div>
+                    <div class="mycode">
+                        <img class="myImg" src="{{ url_for('user.get_code') }}"
+                             onclick="this.src='{{ url_for('user.get_code') }}?'+ Math.random()">
+                    </div>
+
+
+                    <div class="form_btn">
+                        <input class="layui-btn layui-btn-danger" type="submit" value="注册" style="width: 280px;"/>
+                    </div>
+
+                    <div class="form_reg_btn">
+                        <span>已有帐号？</span><a href="{{ url_for('user.login') }}">马上登录</a>
+                    </div>
+                </form>
+                <!--占位-->
+                <div class="other_login">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--footer---------->
+<footer class="mt20 center layui-bg-black myfooter">
+
+    <div class="copyright"><h2>简体 | 繁体 | English | 常见问题</h2></div>
+    <div class="copyright"><h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号
+    </h2></div>
+</footer>
+<!--footer---------->
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#name").blur(function () {
+            var name = $("#name").val();
+            data={'username':name};
+            $.ajax({
+                type: "GET",//方法类型
+                dataType: "json",
+                url: "/user/validateUser/",
+                data: data,
+                success: function (result) {
+                    if (result.Code == 200) {
+                        var msg=result.msg;
+                        $("#hint").append(" <p style='color: red'>"+msg+"</p>");
+                    };
+                    if (result.Code == 500) {
+
+                    };
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        });
+
+        $("#name").blur(function () {
+            $("#hint").empty();
+        });
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>商品展示</title>
+    <link rel="stylesheet" href="/static/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <style>
+        .image {
+            width: 70px;
+            height: 70px;
+        }
+
+        .myli {
+            font-size: 45px;
+            color: #FF5722;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .pic {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- start header -->
+<header>
+    <div class="top center">
+        <div class="right fr">
+            <div class="gouwuche fr">
+                <a href="/user/userInfo">个人中心</a>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<!--end header -->
+
+<!-- start banner_x -->
+<div class="banner_x center">
+    <a href="{{ url_for('user.index') }}" taget="_blank">
+        <i class="layui-icon layui-icon-home fl myli"></i>
+    </a>
+    <div class="nav fl">
+        <ul style="margin-left:50px;">
+            <li><a href="/user/itemList/手机">手机</a></li>
+            <li><a href="/user/itemList/电脑平板">电脑平板</a></li>
+            <li><a href="/user/itemList/服饰鞋包">服饰鞋包</a></li>
+            <li><a href="/user/itemList/二手书籍">二手书籍</a></li>
+            <li><a href="/user/itemList/家居家电">家居家电</a></li>
+            <li><a href="/user/itemList/生活百货">生活百货</a></li>
+            <li><a href="/user/itemList/健身器材">健身器材</a></li>
+            <li><a href="/user/itemList/智能硬件">智能硬件</a></li>
+            <li><a href="/user/itemList/其他">其他</a></li>
+        </ul>
+    </div>
+    <div class="search fr">
+        <form action="" method="post">
+            <div class="text fl">
+                <input type="text" class="shuru" placeholder="请输入需要的商品" style="text-align: center;">
+            </div>
+            <div class="submit fl">
+                <input type="submit" class="sousuo" value="搜索"/>
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- end banner_x -->
+<hr class="layui-bg-red">
+<!-- xiangqing -->
+<form action="post" method="">
+    <div class="jieshao mt20 w">
+        <div class="left fl">
+            <div style="text-align: center; margin-top: 50px;">
+                <img id="pic" src="{{ item.pic1 }}" style="width:400px;height:400px;">
+            </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <img class="image" onmouseover="mOver(this)" src="{{ item.pic1 }}"
+                     style="border: solid 1px;color: #007DDB;">
+                <img class="image" onmouseover="mOver(this)" src="{{ item.pic2 }}"
+                     style="border: solid 1px;color: #007DDB;">
+                <img class="image" onmouseover="mOver(this)" src="{{ item.pic3 }}"
+                     style="border: solid 1px;color: #007DDB;">
+            </div>
+        </div>
+        <div class="right fr">
+            <div style="margin-left: 50px;margin-top: 80px;">
+                <div class="h3 ml20 mt20">{{ item.itemName }}</div>
+                <div class="ft20 ml20 mt20">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格&nbsp;：{{ item.price }}元</div>
+                <div class="ft20 ml20 mt20">商品成色：{{ item.condition }}</div>
+                <div class="ft20 ml20 mt20">商品所在地&nbsp;：{{ user.address2 }}</div>
+                <div class="ft20 ml20 mt20">卖方联系方式：{{ user.phone }}</div>
+                <div class="ft20 ml20 mt20">卖方信誉度：{{ user.credit }}%</div>
+                {#                <div class="ft20 ml20 mt20">商品配置：{{ item.config }}</div>#}
+                <div class="ft20 ml20 mt20">商品游览次数：{{ item.visit_count }}</div>
+            </div>
+
+            <div class="xiadan ml20 mt20" style="margin-top: 50px;margin-left: 40px;">
+                <input id="{{ item.item_id }}" class="jrgwc" type="button" onclick="buy(this)" value="立即选购"/>
+                <input id="{{ item.item_id }}" class="jrgwc" type="button" onclick="addCar(this)" value="加入购物车"/>
+            </div>
+            <div style="margin-top: 20px;margin-left: 50px">
+                <input type="button" class="layui-btn" id="{{ item.item_id }}" onclick="reduce(this)" value="降价通知"/>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</form>
+
+
+<!-- 选项卡    -->
+<div style="margin-top: 100px;margin-left: 150px;">
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">
+                <button class="layui-btn">商品详情</button>
+            </li>
+            <li>
+                <button class="layui-btn layui-btn-normal">
+                    联系卖家
+                </button>
+            </li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div style="width: 800px; margin-left: 90px;">
+                    <img src="{{ item.pic1 }}" style="width: 350px; height: 360px; float: left;"/>
+                    <h3 style="width: 150px;float: left;text-align: center;margin-top: 70px;color: #b2e2fa">
+                        <h2 style="color: #0b6fa2">商品详情</h2>
+                        <br>
+                        {{ item.detail }}
+                    </h3>
+                </div>
+                <div style="margin-top: 90px;clear: both;width: 800px; margin-left: 90px;">
+                    <img src="{{ item.pic2 }}" style="width: 350px; height: 360px; margin-top: 50px;float: left"/>
+                    {% if item.config %}
+                        <span style="color:#b2e2fa">
+                        <h3 style="width: 150px;float: left;margin-top: 70px;">
+                         <h2 style="color: #0b6fa2">商品配置</h2>
+                         <br>
+                        </h3>
+                         </span>
+                        {{ item.config }}
+                    {% endif %}
+                </div>
+
+                <div style="clear: both;margin-left: 50px">
+                    {% if item.video %}
+{#                        {{ item.video }}#}
+                        <video width="320" height="240" controls autoplay>
+                            {#                            <source src="/static/video/VID_20180525_115621.mp4" type="video/mp4" width="320" height="320">#}
+                            <source src="{{ item.video }}" type="video/mp4" width="320" height="240">
+                            <object data="{{ item.video }}" width="320" height="240">
+                                <embed width="320" height="240" src="{{ item.video }}">
+                            </object>
+                        </video>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="layui-tab-item" style="height: 500px">
+                <div id="t" style="margin-top: 10px;height: 400px ;overflow-y: scroll"></div>
+                <input id="input" type="text" style="height:37px "/>
+                <input class="layui-btn" type="button" value="发送" onclick="sendMsg()">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<footer class="mt20 center layui-bg-black myfooter">
+    <div class="copyright">
+        <h2>易淘二手商城版权所有</h2>
+    </div>
+</footer>
+<!-- footer -->
+<script src="/static/js/layui.js"></script>
+<script>
+    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+</script>
+<script>
+    window.onload = function () {
+        if ('{{ msg }}' != "") {
+            alert('{{ msg }}');
+        }
+    }
+
+    function mOver(obj) {
+        var s = obj.src
+        document.getElementById("pic").src = s
+    }
+
+    function mOut(obj) {
+    }
+</script>
+
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/socket.io.js"></script>
+<script>
+    $(document).ready(function () {
+        loadMsg();
+        namespace = '/abcd';
+
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+        socket.on('response', function (res) {
+
+            console.log(res);
+            var msg = res.msg;
+            var name = res.name;
+            var item_id = res.item_id;
+            var cur_id ={{ item.item_id}};
+
+            if (msg && cur_id == item_id) {
+
+                $("#t").append("<img src=" + name + " class='pic'>").append(':').append(msg).append('<br/>');
+            }
+        });
+    });
+
+
+    function loadMsg() {
+        $.ajax({
+            type: "GET",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/loadMsg/{{ item.item_id }}",
+            success: function (result) {
+                var data = result.data;
+                console.log(result.Code);
+                console.log(data);
+                var msgs = data.msgs;
+                console.log(msgs)
+
+                if (result.Code == 200) {
+                    console.log(msgs[0].msg)
+                    for (var i = 0; i < msgs.length; i++) {
+                        var name = msgs[i].name;
+                        var cur_id ={{ item.item_id }};
+                        var item_id = msgs[i].item_id;
+                        if (cur_id == item_id) {
+                            $("#t").append("<img src=" + name + " class='pic'>").append(':').append(msgs[i].msg).append('<br/>');
+                        }
+                    }
+                }
+                ;
+                if (result.Code == 500) {
+                    alert('加载失败！')
+                }
+                ;
+            },
+            error: function () {
+                console.log("异常！")
+            }
+        });
+    }
+
+    function sendMsg() {
+        namespace = '/abcd';
+        var msg = $('#input').val();
+        var item_id ={{ item.item_id }};
+        var user1_id ={{ user.user_id }};
+        var data = {'item_id': item_id, 'msg': msg, 'user1_id': user1_id};
+        console.log(data)
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+        socket.on('connect', function () {
+            if (msg) {
+                socket.emit('my event', data);
+            }
+        });
+    }
+</script>
+<script>
+    function buy(obj) {
+        var item_id = obj.id;
+        console.log(item_id);
+        var data = {'item_id': item_id}
+        console.log(data);
+        $.ajax({
+            type: "GET",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/addOrder/",
+            data: data,
+            success: function (result) {
+                console.log(result.Code);
+                if (result.Code == 200) {
+                    alert(result.msg);
+                }
+                ;
+                if (result.Code == 500) {
+                    alert(result.msg)
+                }
+                ;
+            },
+            error: function () {
+                alert("异常！");
+            }
+        });
+    }
+
+    function addCar(obj) {
+        var item_id = obj.id;
+        console.log(item_id);
+        var data = {'item_id': item_id}
+        console.log(data);
+        $.ajax({
+            type: "GET",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/addShopcar/",
+            data: data,
+            success: function (result) {
+                console.log(result.Code);
+                if (result.Code == 200) {
+                    alert(result.msg);
+                }
+                ;
+                if (result.Code == 500) {
+                    alert(result.msg)
+                }
+                ;
+            },
+            error: function () {
+                alert("异常！");
+            }
+        });
+    }
+
+    function reduce(obj) {
+        var item_id = obj.id;
+        console.log(item_id);
+        var data = {'item_id': item_id}
+        console.log(data);
+        $.ajax({
+            type: "GET",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/reduce/",
+            data: data,
+            success: function (result) {
+                console.log(result.Code);
+                if (result.Code == 200) {
+                    alert(result.msg);
+                }
+                ;
+                if (result.Code == 500) {
+                    alert(result.msg)
+                }
+                ;
+            },
+            error: function () {
+                alert("异常！");
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

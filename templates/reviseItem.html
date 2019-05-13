@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="author" content="order by dede58.com"/>
+		<title>修改商品信息</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<link rel="stylesheet" href="/static/css/layui.css" media="all">
+	</head>
+	<style>
+		.myli{
+				font-size: 45px;
+				color:#FF5722;
+				margin-top: 20px;
+				margin-right: 10px;
+			}
+
+			#myinput {
+				text-align: center;
+			}
+
+			.myb {
+				font-size: large;
+				width: 500px;
+				text-align: center;
+			}
+
+			.mybutton {
+				margin-top: 30px;
+				margin-left:450px;
+			}
+
+			.item {
+				width: 150px;
+				text-align: center;
+				float: left;
+				margin-top: 25px;
+			}
+			.myimg{
+				width:90px;
+			    height:90px;
+			    margin-left: 5px;
+			}
+			.upload{
+				text-align: center;
+				margin-top: 10px;
+			}
+			.spimg1{
+				width:200px;
+				height:200px;
+			}
+			.spimg2{
+				border: solid 1px;
+				color: #007DDB;
+				width: 60px;
+				height: 60px;
+			}
+	</style>
+	<body>
+	<!-- start header -->
+		<header>
+			<div class="top center">
+				<div class="right fr">
+					<div class="gouwuche fr"><a href="userInfo.html">个人中心</a></div>
+					<div class="fr">
+						<ul>
+							<li><a href="./login.html" target="_blank">登录</a></li>
+							<li>|</li>
+							<li><a href="./register.html" target="_blank" >注册</a></li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>
+	<!--end header -->
+	<!-- start banner_x -->
+	<!-- top2 search-->
+	<div class="banner_x center">
+		<a href="./index.html" taget="_blank">
+			<i class="layui-icon layui-icon-home fl myli"></i>
+		</a>
+		<div class="nav fl">
+			<ul style="margin-left:50px;">
+				<li>
+					<a href="/liebiao.html" target="_blank">手机</a>
+				</li>
+				<li>
+					<a href="">电脑 平板</a>
+				</li>
+				<li>
+					<a href="">平板·笔记本</a>
+				</li>
+				<li>
+					<a href="">电视</a>
+				</li>
+				<li>
+					<a href="">盒子·影音</a>
+				</li>
+				<li>
+					<a href="">路由器</a>
+				</li>
+				<li>
+					<a href="">智能硬件</a>
+				</li>
+				<li>
+					<a href="">服务</a>
+				</li>
+				<li>
+					<a href="">社区</a>
+				</li>
+			</ul>
+		</div>
+		<!--search 框-->
+		<div class="search fr">
+			<form action="" method="post">
+				<div class="text fl">
+					<input type="text" class="shuru" placeholder="请输入需要的商品">
+				</div>
+				<div class="submit fl">
+					<input type="submit" class="sousuo" value="搜索" />
+				</div>
+				<div class="clear"></div>
+			</form>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!-- top2 -->
+
+<!-- self_info -->
+	<div class="grzxbj" style="margin-top: 10px;">
+		<div class="selfinfo center">
+		<div class="lfnav fl">
+			<div class="ddzx" >
+				<p ><b>订单中心</b></p>
+			</div>
+			<div class="subddzx">
+				<ul style="margin-left: 5px;">
+					<li><a href="order.html" >我的订单</a></li>
+					<li><a href="order.html" >评价订单</a></li>
+				</ul>
+			</div>
+			<div class="ddzx">
+				<p ><b>个人中心</b></p>
+			</div>
+			<div class="subddzx">
+				<ul style="margin-left: 5px;">
+					<li><a href="./self_info.html">个人信息</a></li>
+					<li><a href="">消息通知</a></li>
+					<li><a href="" style="color:#ff6700;font-weight:bold;">已发布商品</a></li>
+					<li><a href="">游览历史</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="rtcont fr">
+			<form id="form1"  style="margin-left: 40px;">
+				<div style="margin-top: 60px;"></div>
+                <div style="visibility: hidden">
+					<input id="myinput" class="subgrzl ml40" type="text" name="item_id" value="{{ item.item_id }}" />
+				</div>
+				<div>
+					<div class="item">
+						<b class="myb">商品名称:</b>
+					</div>
+					<input id="myinput" class="subgrzl ml40" type="text" name="itemName" value="{{ item.itemName }}" />
+				</div>
+				<div>
+					<div class="item">
+						<b class="myb">价格:</b>
+					</div>
+					<input id="myinput" class="subgrzl ml40" type="text" name="price" value="{{ item.price }}" />
+				</div>
+				<div>
+					<div class="item">
+						<b class="myb">商品描述:</b>
+					</div>
+					<textarea id="myinput" class="subgrzl ml40" name="detail" >{{ item.detail }}</textarea>
+				</div>
+				<div>
+					<div class="item">
+						<b class="myb">发货地址:</b>
+					</div>
+					<input id="myinput" class="subgrzl ml40" type="text" name="address1" value="{{ item.address1 }}" />
+				</div>
+				<div>
+					<div class="item">
+						<b class="myb">商品成色:</b>
+					</div>
+					<input id="myinput" class="subgrzl ml40" type="text" name='condition' value="{{ item.condition }}" />
+				</div>
+				<div>
+					<div class="item">
+						<b class="myb">商品配置:</b>
+					</div>
+					<input id="myinput" class="subgrzl ml40" type="text" name="config" value="{{ item.config }}" />
+				</div>
+				<div class="mybutton">
+                    <input class="layui-btn layui-btn-danger" type="button" onclick="reviseItem()"  value="保存修改">
+			    </div>
+			</form>
+	    </div>
+
+			<!--修改图像   -->
+			<div style="position:absolute; top:200px ; right:370px;">
+
+				<div >
+					<div style="text-align: center; margin-top: 50px;">
+						<img id="pic"class="spimg1"  src="{{ item.pic1 }}" >
+					</div>
+					<div style="text-align: center; margin-top: 10px;">
+						<img  class="spimg2" onmouseover="mOver(this)" src="{{ item.pic1 }}"  >
+						<img class="spimg2" onmouseover="mOver(this)" src="{{ item.pic2 }}" >
+						<img class="spimg2" onmouseover="mOver(this)" src="{{ item.pic3 }}" >
+					</div>
+					<div class="upload" >
+						<button type="button" class="layui-btn" id="test1">
+						  <i class="layui-icon">&#xe67c;</i>修改图片
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		</div>
+	</div>
+<!-- self_info -->
+        <footer class="mt20 center layui-bg-black myfooter">
+            <div class="copyright"><h2>简体 | 繁体 | English | 常见问题</h2></div>
+			<div class="copyright"><h2>易淘二手商城版权所有-京ICP备10046444-<img src="/static/image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号</h2></div>
+		</footer>
+	<script src="/static/js/layui.all.js"></script>
+	<script>
+		layui.use('upload', function() {
+			var upload = layui.upload;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem: '#test1' //绑定元素
+					,
+				url: '/upload/' //上传接口
+					,
+				done: function(res) {
+					//上传完毕回调
+				},
+				error: function() {
+					//请求异常回调
+				}
+			});
+		});
+	</script>
+	<script>
+		function mOver(obj) {
+			var s = obj.src
+			document.getElementById("pic").src = s
+		}
+
+		function mOut(obj) {}
+	</script>
+
+    <script src="/static/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+		function reviseItem() {
+			$.ajax({
+				//几个参数需要注意一下
+				type: "POST", //方法类型
+				dataType: "json", //预期服务器返回的数据类型
+				url: "/user/reviseItem/", //url
+				data: $('#form1').serialize(),
+				success: function(result) {
+					console.log(result); //打印服务端返回的数据(调试用)
+					if(result.resultCode == 200) {
+						alert("修该成功");
+						{#location.href="/user/reviseItem/?item_id="+result.item_id;#}
+					};
+				},
+				error: function() {
+
+					alert("修改失败！");
+				}
+			});
+		}
+	</script>
+
+
+
+	</body>
+</html>
